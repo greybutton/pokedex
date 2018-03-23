@@ -1,4 +1,4 @@
-import { Pokedex } from 'pokeapi-js-wrapper'
+import Pokedex from 'pokedex-promise-v2'
 import { put, call } from 'redux-saga/effects'
 import * as PokemonsActions from '../actions/PokemonsActions'
 
@@ -7,12 +7,12 @@ const options = {
   hostName: 'pokeapi.co',
   versionPath: '/api/v2/',
   cacheLimit: 100 * 1000, // 100s
-  timeout: 5 * 1000 // 5s
+  timeout: 10 * 1000 // 10s
 }
 
 const P = new Pokedex(options)
 
-export function getPokemons (interval = { limit: 9, offset: 0 }) {
+export function getPokemons (interval = { limit: 8, offset: 0 }) {
   return P.getPokemonsList(interval)
     .then((response) => {
       return response
