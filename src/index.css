@@ -13,3 +13,7 @@ table th,
 table td {
   text-align: center;
 }
+
+.pokemons-types span {
+  padding: 0 5px;
+}

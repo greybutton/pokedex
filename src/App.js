@@ -2,48 +2,36 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as PokemonsActions from './actions/PokemonsActions'
+import * as TableActions from './actions/TableActions'
+import * as TypesActions from './actions/TypesActions'
 import PokemonTable from './components/PokemonTable'
-import Pagination from './components/Pagination'
+import PokemonTypes from './components/PokemonTypes'
 
 class App extends Component {
   componentDidMount () {
-    this.props.PokemonsActions.pokemonsGet()
+    this.props.TableActions.pokemonsGet()
+    this.props.TypesActions.pokemonsGetTypesList()
   }
   render () {
-    const { loadingPokemons, errorPokemons } = this.props
-    if (loadingPokemons) {
-      return <div>Loading</div>
-    }
-    if (errorPokemons) {
-      return <div>Error</div>
-    }
     return (
       <div>
+        <PokemonTypes />
         <PokemonTable />
-        <Pagination />
       </div>
     )
   }
 }
 
 App.propTypes = {
-  loadingPokemons: PropTypes.bool.isRequired,
-  errorPokemons: PropTypes.object,
-  PokemonsActions: PropTypes.object.isRequired
-}
-
-function mapStateToProps (state) {
-  return {
-    loadingPokemons: state.pokemonsStore.loading,
-    errorPokemons: state.pokemonsStore.error
-  }
+  TableActions: PropTypes.object.isRequired,
+  TypesActions: PropTypes.object.isRequired
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    PokemonsActions: bindActionCreators(PokemonsActions, dispatch)
+    TableActions: bindActionCreators(TableActions, dispatch),
+    TypesActions: bindActionCreators(TypesActions, dispatch)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(null, mapDispatchToProps)(App)

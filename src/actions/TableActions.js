@@ -10,6 +10,10 @@ export const POKEMONS_GET_NEXT_REQUEST = 'POKEMONS_GET_NEXT_REQUEST'
 export const POKEMONS_GET_NEXT_SUCCESS = 'POKEMONS_GET_NEXT_SUCCESS'
 export const POKEMONS_GET_NEXT_FAILED = 'POKEMONS_GET_NEXT_FAILED'
 
+export const POKEMONS_GET_TYPE_REQUEST = 'POKEMONS_GET_TYPE_REQUEST'
+export const POKEMONS_GET_TYPE_SUCCESS = 'POKEMONS_GET_TYPE_SUCCESS'
+export const POKEMONS_GET_TYPE_FAILED = 'POKEMONS_GET_TYPE_FAILED'
+
 export function pokemonsGet () {
   return {
     type: POKEMONS_GET_REQUEST
@@ -72,6 +76,29 @@ export function pokemonsGetNextSuccess (data) {
 export function pokemonsGetNextFailed (error) {
   return {
     type: POKEMONS_GET_NEXT_FAILED,
+    error
+  }
+}
+
+export function pokemonsGetType (url) {
+  return {
+    type: POKEMONS_GET_TYPE_REQUEST,
+    payload: {
+      url
+    }
+  }
+}
+
+export function pokemonsGetTypeSuccess (data) {
+  return {
+    type: POKEMONS_GET_TYPE_SUCCESS,
+    payload: data
+  }
+}
+
+export function pokemonsGetTypeFailed (error) {
+  return {
+    type: POKEMONS_GET_TYPE_FAILED,
     error
   }
 }

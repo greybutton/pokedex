@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
-import PokemonsReducer from './PokemonsReducer'
+import TableReducer from './TableReducer'
+import TypesReducer from './TypesReducer'
 
 const reducers = {
-  pokemonsStore: PokemonsReducer
+  tableStore: TableReducer,
+  typesStore: TypesReducer
 }
 
 const rootReducer = combineReducers(reducers)
