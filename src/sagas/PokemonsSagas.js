@@ -27,13 +27,51 @@ export function getPokemonsByUrl (urls = []) {
 }
 
 export function * fetchPokemons () {
-  const { count, prev, next, results } = yield call(getPokemons)
-  const pagination = { count, prev, next }
-  const urls = results.map(pokemon => pokemon.url)
-  const pokemons = yield call(getPokemonsByUrl, urls)
-  const result = {
-    pagination,
-    pokemons
+  try {
+    const { count, previous, next, results } = yield call(getPokemons)
+    const pagination = { count, previous, next }
+    const urls = results.map(pokemon => pokemon.url)
+    const pokemons = yield call(getPokemonsByUrl, urls)
+    const result = {
+      pagination,
+      pokemons
+    }
+    yield put(PokemonsActions.pokemonsGetSuccess(result))
+  } catch (error) {
+    yield put(PokemonsActions.pokemonsGetFailed(error))
   }
-  yield put(PokemonsActions.pokemonsGetSuccess(result))
+}
+
+export function * fetchPokemonsPrev ({ payload }) {
+  const { url } = payload
+  try {
+    const { count, previous, next, results } = yield call(getPokemonsByUrl, url)
+    const pagination = { count, previous, next }
+    const urls = results.map(pokemon => pokemon.url)
+    const pokemons = yield call(getPokemonsByUrl, urls)
+    const result = {
+      pagination,
+      pokemons
+    }
+    yield put(PokemonsActions.pokemonsGetPrevSuccess(result))
+  } catch (error) {
+    yield put(PokemonsActions.pokemonsGetPrevFailed(error))
+  }
+}
+
+export function * fetchPokemonsNext ({ payload }) {
+  const { url } = payload
+  try {
+    const { count, previous, next, results } = yield call(getPokemonsByUrl, url)
+    const pagination = { count, previous, next }
+    const urls = results.map(pokemon => pokemon.url)
+    const pokemons = yield call(getPokemonsByUrl, urls)
+    const result = {
+      pagination,
+      pokemons
+    }
+    yield put(PokemonsActions.pokemonsGetNextSuccess(result))
+  } catch (error) {
+    yield put(PokemonsActions.pokemonsGetNextFailed(error))
+  }
 }

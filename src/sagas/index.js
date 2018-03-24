@@ -3,6 +3,8 @@ import * as PokemonsWatchers from './PokemonsWatchers'
 
 export default function * root () {
   yield all([
-    fork(PokemonsWatchers.watchPokemonsRequest)
+    fork(PokemonsWatchers.watchPokemonsRequest),
+    fork(PokemonsWatchers.watchPokemonsPrevRequest),
+    fork(PokemonsWatchers.watchPokemonsNextRequest)
   ])
 }
