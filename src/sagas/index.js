@@ -7,6 +7,7 @@ export default function * root () {
     fork(watchers.watchPokemonsPrevRequest),
     fork(watchers.watchPokemonsNextRequest),
     fork(watchers.watchPokemonsTypesListRequest),
-    fork(watchers.watchPokemonsTypeRequest)
+    fork(watchers.watchPokemonsTypeRequest),
+    fork(watchers.watchPokemonsSearchRequest)
   ])
 }

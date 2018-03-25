@@ -6,6 +6,7 @@ import * as TableActions from './actions/TableActions'
 import * as TypesActions from './actions/TypesActions'
 import PokemonTable from './components/PokemonTable'
 import PokemonTypes from './components/PokemonTypes'
+import PokemonSearch from './components/PokemonSearch'
 
 class App extends Component {
   componentDidMount () {
@@ -15,6 +16,7 @@ class App extends Component {
   render () {
     return (
       <div>
+        <PokemonSearch />
         <PokemonTypes />
         <PokemonTable />
       </div>

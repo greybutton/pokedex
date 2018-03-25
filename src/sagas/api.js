@@ -8,3 +8,7 @@ export const getAll = (urls) => axios.all(urls)
 export const getPokemons = (params) => axios.get(`https://pokeapi.co/api/v2/pokemon/?${stringify(params)}`)
 
 export const getTypes = (params) => axios.get(`https://pokeapi.co/api/v2/type/?${stringify(params)}`)
+
+export const getPokemonsSearch = (param) => axios
+  .get(`https://pokeapi.co/api/v2/pokemon/${param}/`)
+  .catch(error => error.response)
