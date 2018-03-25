@@ -14,9 +14,12 @@ export const POKEMONS_GET_TYPE_REQUEST = 'POKEMONS_GET_TYPE_REQUEST'
 export const POKEMONS_GET_TYPE_SUCCESS = 'POKEMONS_GET_TYPE_SUCCESS'
 export const POKEMONS_GET_TYPE_FAILED = 'POKEMONS_GET_TYPE_FAILED'
 
-export function pokemonsGet () {
+export function pokemonsGet (limit) {
   return {
-    type: POKEMONS_GET_REQUEST
+    type: POKEMONS_GET_REQUEST,
+    payload: {
+      limit
+    }
   }
 }
 

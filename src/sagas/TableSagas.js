@@ -2,9 +2,13 @@ import { put, call } from 'redux-saga/effects'
 import * as api from './api'
 import * as TableActions from '../actions/TableActions'
 
-export function * fetchPokemons () {
+export function * fetchPokemons ({ payload }) {
+  const { limit } = payload
+  const interval = {
+    limit
+  }
   try {
-    const { data: { count, previous, next, results } } = yield call(api.getPokemons, { limit: 9 })
+    const { data: { count, previous, next, results } } = yield call(api.getPokemons, interval)
     const pagination = { count, previous, next }
     const urls = results.map(pokemon => api.getUrl(pokemon.url))
     const pokemonsAll = yield call(api.getAll, urls)

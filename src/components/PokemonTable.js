@@ -3,7 +3,43 @@ import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Pagination from './Pagination'
+import Limits from './PokemonLimits'
 import * as TableActions from '../actions/TableActions'
+
+const preloader = <div>Loading</div>
+
+const pokemonsTable = (pokemons) => (
+  <table>
+    <thead>
+      <tr>
+        <th>Avatar</th>
+        <th>Name</th>
+        <th>Ability</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        pokemons.map(pokemon => (
+          <tr key={pokemon.id}>
+            <td><img src={pokemon.sprites.front_default} alt={pokemon.name} /></td>
+            <td>{pokemon.name}</td>
+            <td>
+              {pokemon.abilities.map((ability, i) =>
+                !ability.is_hidden && <span key={i}>{ability.ability.name}</span>
+              )}
+            </td>
+            <td>
+              {pokemon.types.map((type, i) =>
+                <div key={i}>{type.type.name}</div>
+              )}
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+)
 
 const table = (props) => {
   const {
@@ -13,44 +49,21 @@ const table = (props) => {
     error,
     TableActions
   } = props
-  if (loading) {
-    return <div>Loading</div>
-  }
-  if (error.code) {
+
+  if (error && error.code) {
     return <div>Error</div>
   }
   return (
     <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Avatar</th>
-            <th>Name</th>
-            <th>Ability</th>
-            <th>Type</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            pokemons.map(pokemon => (
-              <tr key={pokemon.id}>
-                <td><img src={pokemon.sprites.front_default} alt={pokemon.name} /></td>
-                <td>{pokemon.name}</td>
-                <td>
-                  {pokemon.abilities.map((ability, i) =>
-                    !ability.is_hidden && <span key={i}>{ability.ability.name}</span>
-                  )}
-                </td>
-                <td>
-                  {pokemon.types.map((type, i) =>
-                    <div key={i}>{type.type.name}</div>
-                  )}
-                </td>
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
+      {
+        pagination &&
+        <Limits />
+      }
+      {
+        loading
+          ? preloader
+          : pokemonsTable(pokemons)
+      }
       {
         pagination &&
         <Pagination
