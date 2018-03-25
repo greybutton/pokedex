@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -41,42 +41,63 @@ const pokemonsTable = (pokemons) => (
   </table>
 )
 
-const table = (props) => {
-  const {
-    pokemons,
-    pagination,
-    loading,
-    error,
-    TableActions
-  } = props
-
-  if (error && error.code) {
-    return <div>Error</div>
+class Table extends PureComponent {
+  state = {
+    filterValue: ''
   }
-  return (
-    <div>
-      {
-        pagination &&
-        <Limits />
-      }
-      {
-        loading
-          ? preloader
-          : pokemonsTable(pokemons)
-      }
-      {
-        pagination &&
-        <Pagination
-          pagination={pagination}
-          previous={TableActions.pokemonsGetPrev}
-          next={TableActions.pokemonsGetNext}
-        />
-      }
-    </div>
-  )
+  render () {
+    const {
+      pokemons,
+      pagination,
+      loading,
+      error,
+      TableActions
+    } = this.props
+
+    const {
+      filterValue
+    } = this.state
+
+    const pokemonsFiltered = pokemons.filter(pokemon => pokemon.name.includes(filterValue))
+
+    if (error && error.code) {
+      return <div>Error</div>
+    }
+    return (
+      <div>
+        {
+          pagination &&
+          <Limits />
+        }
+        <div>
+          Filter
+          <input
+            type="search"
+            onChange={(e) => {
+              const { target: { value } } = e
+              this.setState({ filterValue: value })
+            }}
+          />
+        </div>
+        {
+          loading
+            ? preloader
+            : pokemonsTable(pokemonsFiltered)
+        }
+        {
+          pagination &&
+          <Pagination
+            pagination={pagination}
+            previous={TableActions.pokemonsGetPrev}
+            next={TableActions.pokemonsGetNext}
+          />
+        }
+      </div>
+    )
+  }
 }
 
-table.propTypes = {
+Table.propTypes = {
   pokemons: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
   pagination: PropTypes.object,
@@ -99,4 +120,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(table)
+export default connect(mapStateToProps, mapDispatchToProps)(Table)
