@@ -11,8 +11,14 @@ const renderPokemon = (pokemon) => (
     <img src={pokemon.sprites.front_default} alt={pokemon.name}/>
     <div>Name: {pokemon.name}</div>
     <div>Weight: {pokemon.weight}</div>
-    <div>Abilities: {pokemon.abilities.map(ability => <span>{ability.ability.name}{ability.is_hidden && '(hidden)'} </span>)}</div>
-    <div></div>
+    <div>Abilities: {pokemon.abilities.map(ability =>
+        <span>{ability.ability.name}{ability.is_hidden && '(hidden)'} </span>
+      )}
+    </div>
+    <div>Types: {pokemon.types.map((type, i) =>
+        <span key={i}>{type.type.name} </span>
+      )}
+    </div>
   </div>
 )
 

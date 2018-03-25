@@ -17,7 +17,9 @@ class App extends Component {
     return (
       <div>
         <PokemonSearch />
+        <br />
         <PokemonTypes />
+        <br />
         <PokemonTable />
       </div>
     )

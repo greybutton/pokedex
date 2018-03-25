@@ -22,14 +22,14 @@ const pokemonsTable = (pokemons) => (
       {
         pokemons.map(pokemon => (
           <tr key={pokemon.id}>
-            <td><img src={pokemon.sprites.front_default} alt={pokemon.name} /></td>
-            <td>{pokemon.name}</td>
-            <td>
+            <td data-label="Avatar"><img src={pokemon.sprites.front_default} alt={pokemon.name} /></td>
+            <td data-label="Name">{pokemon.name}</td>
+            <td data-label="Ability">
               {pokemon.abilities.map((ability, i) =>
                 !ability.is_hidden && <span key={i}>{ability.ability.name}</span>
               )}
             </td>
-            <td>
+            <td data-label="Type">
               {pokemon.types.map((type, i) =>
                 <div key={i}>{type.type.name}</div>
               )}

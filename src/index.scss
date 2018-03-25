@@ -1,0 +1,52 @@
+$border-color: #ddd;
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+table img {
+  width: 96px;
+  height: 96px;
+}
+
+table th,
+table td {
+  text-align: center;
+}
+
+@media (max-width: 420px) {
+  table {
+    width: 100%;
+  }
+  table thead {
+    display: none;
+  }
+  table tr {
+    border-bottom: 3px solid $border-color;
+    display: block;
+  }
+  table td {
+    border-bottom: 1px solid $border-color;
+    display: block;
+    text-align: right;
+  }
+  table td:before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+  }
+}
+
+.pokemons-types {
+  display: flex;
+  flex-flow: wrap;
+}
+
+.pokemons-types span {
+  padding: 0 5px;
+  &:hover {
+    cursor: pointer;
+  }
+}
