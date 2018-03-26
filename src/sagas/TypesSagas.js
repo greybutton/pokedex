@@ -8,8 +8,8 @@ export function * fetchPokemonsTypesList () {
     const result = {
       types: results
     }
-    yield put(TypesActions.pokemonsGetTypesListSuccess(result))
+    yield put(TypesActions.pokemonsGetTypesList.success(result))
   } catch (error) {
-    yield put(TypesActions.pokemonsGetTypesListFailed(error))
+    yield put(TypesActions.pokemonsGetTypesList.failure(error))
   }
 }

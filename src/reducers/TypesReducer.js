@@ -1,6 +1,6 @@
 import * as TypesActions from '../actions/TypesActions'
 
-export const defaultState = {
+const defaultState = {
   types: [],
   loading: false,
   error: {}
@@ -9,20 +9,20 @@ export const defaultState = {
 export default (state = defaultState, action = {}) => {
   const { type, payload, error } = action
   switch (type) {
-    case TypesActions.POKEMONS_GET_TYPES_LIST_REQUEST: {
+    case TypesActions.pokemonsGetTypesList.REQUEST: {
       return {
         ...state,
         loading: true
       }
     }
-    case TypesActions.POKEMONS_GET_TYPES_LIST_SUCCESS: {
+    case TypesActions.pokemonsGetTypesList.SUCCESS: {
       return {
         ...state,
         types: payload.types,
         loading: false
       }
     }
-    case TypesActions.POKEMONS_GET_TYPES_LIST_FAILED: {
+    case TypesActions.pokemonsGetTypesList.FAILURE: {
       return {
         ...state,
         error,

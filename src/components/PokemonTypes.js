@@ -1,21 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as TableActions from '../actions/TableActions'
 
 const types = (props) => {
   const {
     types,
     loading,
-    error,
-    TableActions
+    error
   } = props
   const title = 'Types'
   if (loading) {
     return <div>{title}: Loading</div>
   }
-  if (error.code) {
+  if (error && error.code) {
     return <div>{title}: Error</div>
   }
   return (
@@ -25,7 +22,6 @@ const types = (props) => {
         types.map((type, i) =>
           (<span
             key={i}
-            onClick={() => TableActions.pokemonsGetType(type.url)}
           >
             {type.name}
           </span>)
@@ -38,8 +34,7 @@ const types = (props) => {
 types.propTypes = {
   types: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
-  error: PropTypes.object,
-  TableActions: PropTypes.object.isRequired
+  error: PropTypes.object
 }
 
 function mapStateToProps (state) {
@@ -50,10 +45,4 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    TableActions: bindActionCreators(TableActions, dispatch)
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(types)
+export default connect(mapStateToProps)(types)
